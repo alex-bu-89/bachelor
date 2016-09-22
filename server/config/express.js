@@ -20,6 +20,7 @@ var helpers = require('view-helpers');
 var jade = require('jade');
 var config = require('./');
 var pkg = require('../package.json');
+var cors = require('cors');
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -28,6 +29,8 @@ var env = process.env.NODE_ENV || 'development';
  */
 
 module.exports = function (app, passport) {
+
+  app.use(cors());
 
   // Compression middleware (should be placed before express.static)
   app.use(compression({
