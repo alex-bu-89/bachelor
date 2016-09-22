@@ -65,10 +65,29 @@ function connect () {
 }
 
 // Communication service
-/*
-var slides = io.sockets.on('connection', function (socket) {
-  socket.on('slide:changed', function (data) {
+var clients = [];
+
+var slides = io.sockets.on('connection', function (client) {
+
+  clients[client.id] = {socket: client};
+
+  client.on('client:connected', function(data) {
+    console.log('client connected with id: ', client.id);
     console.log(data);
+    // client.emit('client:', data);
+  });
+
+/*  client.on('data', function (somedata) {
+    clients[client.id].data = someData;
+  });*/
+
+  client.on('slide:changed', function (data) {
+    console.log('slide changed: ', data);
     slides.emit('slide:navigate', data);
   });
-});*/
+
+  client.on('disconnect', function() {
+    delete clients[client.id];
+  });
+
+});

@@ -1,18 +1,16 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import Common from './common/common';
 import socketFactory from './shared/factory/socket';
 import Components from './components/components';
 import config from './shared/config/config';
-import AuthService from './shared/service/auth.service';
+import UserService from './shared/service/user.service';
 import 'normalize.css';
 import template from './app.html';
 import './app.sass';
 
 angular.module('app', [
   uiRouter,
-  Common,
-  Components,
+  Components
 ])
   .config(($locationProvider, $stateProvider) => {
     "ngInject";
@@ -28,8 +26,7 @@ angular.module('app', [
     restrict: 'E'
   })
 
-  .service('authService', AuthService)
-  .service('userService', AuthService)
+  .service('userService', UserService)
 
   .factory('socket', socketFactory)
 
@@ -50,11 +47,11 @@ angular.module('app', [
     $httpProvider.interceptors.push('AuthInterceptor');
   })
 
-  .run(($rootScope, $state, authService) => {
+  .run(($rootScope, $state, userService) => {
     "ngInject";
     $rootScope.$on('$stateChangeStart', (event, next, nextParams, fromState) => {
-      if (!authService.isAuthenticated()) {
-        console.log(next.name);
+      console.log('$stateChangeStart: ', next.name);
+      if (!userService.isAuthenticated()) {
         if (next.name !== 'outside.login' && next.name !== 'outside.register') {
           /*event.preventDefault();
           $state.go('outside.login');*/

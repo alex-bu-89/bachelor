@@ -11,7 +11,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/users:id', function (req, res) {
+  app.get('/user:id', function (req, res) {
     // TODO implement
   });
 

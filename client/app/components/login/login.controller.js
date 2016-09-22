@@ -1,10 +1,10 @@
 class LoginController {
 
   /*@ngInject*/
-  constructor($scope, authService, $state) {
+  constructor($scope, userService, $state) {
 
     this._$scope = $scope;
-    this._authService = authService;
+    this._userService = userService;
     this._$state = $state;
     this.user = {
       email: '',
@@ -16,15 +16,18 @@ class LoginController {
   }
 
   login() {
-    console.log(this.user);
-    this._authService.login(this.user)
+    this._userService.login(this.user)
       .then((msg) => {
-        // $state.go('inside');
+        // $state.go('/slides/1');
         console.log(msg);
       }, (errMsg) => {
         console.log(errMsg);
       });
   };
+
+  logout() {
+    this._userService.logout();
+  }
 
   init() { }
 

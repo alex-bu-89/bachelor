@@ -16,6 +16,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import colorsSupported      from 'supports-color';
 import historyApiFallback   from 'connect-history-api-fallback';
+import open   from 'gulp-open';
 
 let root = 'client';
 
@@ -123,4 +124,9 @@ gulp.task('clean', (cb) => {
   })
 });
 
-gulp.task('default', ['watch']);
+gulp.task('open', function(){
+  gulp.src('')
+    .pipe(open({app: 'Google Chrome', uri: 'http://localhost:3000'}));
+});
+
+gulp.task('default', ['watch', 'open']);
