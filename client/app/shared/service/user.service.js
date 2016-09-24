@@ -10,13 +10,16 @@ class UserService {
    */
 
   /*@ngInject*/
-  constructor($q, $http, config) {
+  constructor($q, $http, $rootScope, config, $timeout) {
     this._$q = $q;
     this._$http = $http;
+    this._$rootScope = $rootScope;
+    this._$timeout = $timeout;
     this._config = config;
 
     this.LOCAL_TOKEN_KEY = 'token';
     this.LOCAL_USER = 'user';
+    this.LOCAL_TEMP_USER = 'temp-user';
     this.isAuthenticated = false;
     this.isTempAuthenticated = false; // need for temp users
     this.authToken;
@@ -27,6 +30,10 @@ class UserService {
 
   setUser(user){
     this.user = user;
+
+    this._$timeout(() => {
+      this._$rootScope.$broadcast('user.updated', user);
+    });
   }
 
   getUser(){
@@ -42,30 +49,53 @@ class UserService {
     if (token) {
       this.useCredentials(token);
     }
+
+    var tempuser = window.localStorage.getItem(this.LOCAL_TEMP_USER);
+    if (tempuser && tempuser != undefined) {
+      this.useTempCredentials();
+      this.setUser(JSON.parse(tempuser))
+    }
+
     console.log('UserService initialized');
     console.log('isAuthenticated: ', this.isAuthenticated);
+    console.log('isTempAuthenticated: ', this.isTempAuthenticated);
   }
 
   storeUserCredentials(data) {
     window.localStorage.setItem(this.LOCAL_TOKEN_KEY, data.token);
     window.localStorage.setItem(this.LOCAL_USER, JSON.stringify(data.user));
+    this.setUser(data.user);
     this.useCredentials(data.token);
+  }
+
+  storeTempUserCredentials(user) {
+    window.localStorage.setItem(this.LOCAL_TEMP_USER, JSON.stringify(user));
+    this.setUser(user);
+    this.useTempCredentials();
   }
 
   useCredentials(token) {
     this.isAuthenticated = true;
+    this.isTempAuthenticated = false;
     this.authToken = token;
 
     // Set the token as header for your requests!
     this._$http.defaults.headers.common.Authorization = this.authToken;
   }
 
+  useTempCredentials() {
+    this.isTempAuthenticated = true;
+    this.isAuthenticated = false;
+  }
+
   destroyUserCredentials() {
     this.authToken = undefined;
     this.isAuthenticated = false;
+    this.isTempAuthenticated = false;
     this._$http.defaults.headers.common.Authorization = undefined;
     window.localStorage.removeItem(this.LOCAL_TOKEN_KEY);
     window.localStorage.removeItem(this.LOCAL_USER);
+    window.localStorage.removeItem(this.LOCAL_TEMP_USER);
   }
 
   register(user) {

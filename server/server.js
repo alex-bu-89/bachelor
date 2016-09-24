@@ -73,6 +73,7 @@ var slides = io.sockets.on('connection', function (client) {
 
   client.on('client:connected', function(data) {
     console.log('client connected with id: ', client.id);
+    clients[client.id]
     console.log(data);
     // client.emit('client:', data);
   });
