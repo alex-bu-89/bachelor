@@ -113,14 +113,12 @@
   <div class="reveal">
     <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
-      <section ng-repeat="slide in $ctrl.structure.slides" ng-bind-html="slide.contentHtml | trustHtml">
-        <!--<div ng-bind-html="slide.contentHtml"></div>-->
-        <!--<h1>{{slide.content.title}}</h1>
-        <img ng-repeat="url in slide.content.imgs" src="{{url}}" />
-        <p ng-repeat="text in slide.content.texts">{{text}}</p>
-        <ul ng-repeat="list in slide.content.lists">
-          <li ng-repeat="item in list">{{item}}</li>
-        </ul>-->
+      <section ng-repeat="slide in $ctrl.structure.slides">
+        <div ng-if="!slide.task.type" class="slide-content" ng-bind-html="slide.contentHtml | trustHtml"></div>
+        <task class="task"
+              ng-if="slide.task.type">
+              structure={{$ctrl.structure}}
+        </task>
       </section>
     </div>
   </div>

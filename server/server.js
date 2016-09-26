@@ -72,10 +72,13 @@ var slides = io.sockets.on('connection', function (client) {
   clients[client.id] = {socket: client};
 
   client.on('client:connected', function(data) {
-    console.log('client connected with id: ', client.id);
-    clients[client.id]
-    console.log(data);
-    // client.emit('client:', data);
+    console.log('client connected: ', client.id);
+    clients[client.id].user = {name: data.name};
+    client.emit('client:update', clients); // TODO update list on client
+  });
+
+  client.on('disconnect', function() {
+    console.log('client disconnected: ', client.id);
   });
 
 /*  client.on('data', function (somedata) {
