@@ -1,10 +1,11 @@
 {
-  "name": "Slide tool",
+  "name": "slide-tool",
   "version": "0.0.1",
   "description": "Bachelor thesis beuth hochschule",
   "main": "index.js",
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-chart.js": "^1.0.3",
     "angular-ui-router": "^1.0.0-beta.1",
     "gulp-open": "^2.0.0",
     "normalize.css": "^3.0.3"

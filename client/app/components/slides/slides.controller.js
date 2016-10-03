@@ -23,9 +23,9 @@ class SlidesController {
   }
 
   initEvents() {
-    // init chage slide event
+    // init change slide event
     Reveal.addEventListener('slidechanged', (event) => {
-      this.currentPage = Reveal.getProgress();
+      this.currentPage = event.indexh;
       this._socket.emit('slide:changed', {page: this.currentPage});
     });
 
@@ -39,7 +39,17 @@ class SlidesController {
       if (data.page !== this.currentPage) {
         Reveal.slide(data.page);
       }
-    })
+    });
+
+    this._socket.on('task:allAnswers:broadcast', (data) => {
+      console.log('task:allAnswers:broadcast');
+      this.structure.slides[data.page].task.allAnswers.push({answer: data.answer});
+    });
+
+    /*this._socket.on('structure:changed:broadcast', (data) => {
+      console.log('structure:changed:broadcast: ', data);
+      this._slideService.setStructure(data.structure);
+    });*/
   }
 
   open() {

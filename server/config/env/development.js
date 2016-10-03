@@ -4,6 +4,6 @@
  */
 
 module.exports = {
-  db: 'mongodb://localhost/lecturesystem',
+  db: 'mongodb://127.0.0.1:27017/lecturesystem',
   secret: 'secretcode',
 };

@@ -21,7 +21,7 @@ const passport = require('passport');
 const config = require('./config');
 
 const models = join(__dirname, 'app/models');
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 
 const app = express();
 var server = require('http').createServer(app);
@@ -87,11 +87,23 @@ var slides = io.sockets.on('connection', function (client) {
 
   client.on('slide:changed', function (data) {
     console.log('slide changed: ', data);
-    slides.emit('slide:navigate', data);
+    client.broadcast.emit('slide:navigate', data);
   });
 
   client.on('disconnect', function() {
     delete clients[client.id];
   });
+
+  // send task answer to all clients
+  client.on('task:allAnswers', function(data) {
+    console.log('task:allAnswers: ', data);
+    slides.emit('task:allAnswers:broadcast', data);
+  });
+
+  // send structure on change to all clients
+  /*client.on('structure:changed', function(data) {
+    console.log('structure:changed');
+    slides.emit('structure:changed:broadcast', data);
+  });*/
 
 });

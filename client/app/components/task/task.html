@@ -1,1 +1,33 @@
-<p>{{$ctrl.structure}}</p>
+<div ng-if="!$ctrl.slideStructure.task.answer" class="task-content">
+    <div ng-if="$ctrl.slideStructure.task.type == 'code'" class="code-task">
+        <h2>{{$ctrl.slideStructure.task.questions}}</h2>
+        <textarea id="editor" ng-model="$ctrl.codeToExecute"></textarea>
+        <textarea id="console" ng-model="$ctrl.consoleOutput"></textarea>
+        <button ng-click="$ctrl.executeCode()" type="button" class="btn btn-danger">Run</button>
+        <button ng-click="$ctrl.sendAnswer()" type="button" class="btn btn-primary">Send Answer</button>
+    </div>
+    <div ng-if="$ctrl.slideStructure.task.type == 'poll'" class="poll-task">
+        <h2>{{$ctrl.slideStructure.task.questions}}</h2>
+        <div class="poll-buttons">
+            <button
+                ng-repeat="possibleAnswer in $ctrl.slideStructure.task.possibleAnswers"
+                ng-click="$ctrl.sendAnswer(possibleAnswer)"
+                type="button"
+                class="btn btn-primary">
+                    {{possibleAnswer.title}}
+            </button>
+        </div>
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+</div>
+<div ng-if="$ctrl.slideStructure.task.answer" class="task-result">
+    <pre ng-if="$ctrl.slideStructure.task.type == 'code'"
+         ng-repeat="answer in $ctrl.slideStructure.task.allAnswers">
+        <code data-trim data-noescape>
+            {{answer.answer}}
+        </code>
+    </pre>
+    <canvas id="pie" class="chart chart-pie"
+            chart-data="data" chart-labels="labels" chart-options="options">
+    </canvas>
+</div>

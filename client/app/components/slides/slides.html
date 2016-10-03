@@ -116,8 +116,9 @@
       <section ng-repeat="slide in $ctrl.structure.slides">
         <div ng-if="!slide.task.type" class="slide-content" ng-bind-html="slide.contentHtml | trustHtml"></div>
         <task class="task"
-              ng-if="slide.task.type">
-              structure={{$ctrl.structure}}
+              ng-if="slide.task.type"
+              slide-structure="slide"
+              socket="_socket">
         </task>
       </section>
     </div>

@@ -6,6 +6,7 @@ import Login from './login/login';
 import Navbar from './navbar/navbar';
 import uiBootstrapModal from 'angular-ui-bootstrap/src/modal';
 import loginModal from './modal/modal';
+import chartjs from 'angular-chart.js';
 
 let componentModule = angular.module('app.components', [
   Home,
@@ -15,6 +16,7 @@ let componentModule = angular.module('app.components', [
   Navbar,
   uiBootstrapModal,
   loginModal,
+  chartjs
 ])
 
 .name;
