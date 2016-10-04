@@ -83,18 +83,22 @@ class SlidesController {
   }
 
   init() {
-    // get structure
-    this.structure = this._slideService.getStructure(12);
-
-    // run app
+    // get presentation structure
+    this.structure = this._slideService.getStructure('aX4j9Z');
+    // run slides
     this._$timeout(() => {
-
       // init events
       this.initEvents();
 
+      // init reveial.js
       this.initReveal();
-      if (!this._userService.isTempAuthenticated) {
-        this.open();
+
+      // skipp temp authenticated if you logged in
+      if (!this._userService.isAuthenticated) {
+        // check student authentification
+        if (!this._userService.isTempAuthenticated) {
+          this.open();
+        }
       }
     });
   }

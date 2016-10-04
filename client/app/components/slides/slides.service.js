@@ -3,18 +3,20 @@ class SlidesService {
   constructor() {
     // init var
     this.structure = {
-      id: 111,
-      theme: '',
+      id: 'aX4j9Z',
+      subject: {},
+      feedback: [],
       slides: [
         {
           contentHtml: '<h1>Test structure</h1>',
           task: {
-            type: 'code', // multiple, quiz, code,
+            type: 'code',
             questions: 'Fibonacci numbers',
             code: 'function fibonacci(a){\nfor(var d,b=1,c=0;a>=0;)\nd=b,b+=c,c=d,a--;\nreturn c\n}\nfibonacci(10)',
             answer: '',
             allAnswers: [],
-          }
+          },
+          assets: {},
         },
         {
           task: {
@@ -54,11 +56,9 @@ class SlidesService {
             answer: '',
             allAnswers: [],
           }
-        },
+        }
       ]
     };
-
-    this.init();
   }
 
   getStructure(id) {
@@ -73,8 +73,6 @@ class SlidesService {
     this.structure = str;
   };
 
-  init() {
-  }
 }
 
 export default SlidesService;

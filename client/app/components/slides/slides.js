@@ -6,11 +6,8 @@ import './slides.sass';
 import SlideService from './slides.service';
 import trustFilter from '../../shared/filter/trust.filter';
 
-
-let slidesModule = angular.module('slides', [
-  uiRouter,
-])
-
+let slidesModule = angular.module('slides', [ uiRouter] )
+// set route   
 .config(($stateProvider) => {
   "ngInject";
   $stateProvider
@@ -19,14 +16,16 @@ let slidesModule = angular.module('slides', [
       component: 'slides'
     });
 })
-
+// set component
 .component('slides', {
   restrict: 'E',
   bindings: {},
   template,
   controller
 })
+// set slide service
 .service('slideService', SlideService)
+// set filter
 .filter('trustHtml', trustFilter)
 
 .name;

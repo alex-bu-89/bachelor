@@ -117,8 +117,7 @@
         <div ng-if="!slide.task.type" class="slide-content" ng-bind-html="slide.contentHtml | trustHtml"></div>
         <task class="task"
               ng-if="slide.task.type"
-              slide-structure="slide"
-              socket="_socket">
+              slide-structure="slide">
         </task>
       </section>
     </div>
