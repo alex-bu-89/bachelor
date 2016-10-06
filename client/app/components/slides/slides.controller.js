@@ -88,6 +88,7 @@ class SlidesController {
     // get presentation structure
     this._slideService.getStructureById(this._$stateParams.id)
       .then((structure)=>{
+        console.log(structure);
         this.structure = structure;
 
         this._$timeout(() => {

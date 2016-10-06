@@ -54,34 +54,45 @@ class TaskController {
       });
   }
 
-  sendPollAnswer(answer){
+  sendPollAnswer(answer, slideStructure){
     var ctx = angular.element( document.querySelector( '#myChart' ) )[0];
-    console.log(ctx);
-    // For a pie chart
+    this.slideStructure.task.answer = answer;
+
+    var test = slideStructure.task.poll.possibleAnswers.map((possibleAnswer)=>{
+      possibleAnswer.votes = parseInt(possibleAnswer.votes);
+      if(possibleAnswer.title == answer.title){
+        possibleAnswer.votes = possibleAnswer.votes + 1;
+      }
+      return possibleAnswer.title;
+    });
+
     var data = {
-      labels: [
-        "Red",
-        "Blue",
-        "Yellow"
-      ],
+      labels: slideStructure.task.poll.possibleAnswers.map((possibleAnswer)=>{
+        return possibleAnswer.title;
+      }),
       datasets: [
         {
-          data: [300, 50, 100],
+          label: "My First dataset",
+          data: slideStructure.task.poll.possibleAnswers.map((possibleAnswer)=>{
+            return possibleAnswer.votes;
+          }),
           backgroundColor: [
             "#FF6384",
             "#36A2EB",
-            "#FFCE56"
+            "#FFCE56",
+            "#36A2EB",
           ],
           hoverBackgroundColor: [
             "#FF6384",
             "#36A2EB",
-            "#FFCE56"
+            "#FFCE56",
+            "#36A2EB",
           ]
         }]
     };
 
     var myPieChart = new Chart(ctx,{
-      type: 'pie',
+      type: 'bar',
       data
     });
   }
