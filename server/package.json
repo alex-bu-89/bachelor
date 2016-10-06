@@ -1,10 +1,10 @@
 {
-  "name": "node-express-mongoose",
-  "description": "A boilerplate application for express mongoose",
+  "name": "slide-tool-server",
+  "description": "",
   "version": "1.0.0",
   "author": {
-    "name": "Madhusudhan Srinivasa",
-    "email": "me@madhums.me"
+    "name": "",
+    "email": ""
   },
   "engines": {
     "node": ">=6.x"
@@ -41,6 +41,7 @@
     "passport": "~0.3.2",
     "passport-jwt": "^2.1.0",
     "passport-local": "~1.0.0",
+    "shortid": "^2.2.6",
     "socket.io": "^1.4.8",
     "view-helpers": "~0.1.5",
     "vm2": "^3.1.0",
@@ -58,9 +59,5 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/madhums/node-express-mongoose.git"
-  },
-  "keywords": [
-    "mvc",
-    "boilerplate"
-  ]
+  }
 }

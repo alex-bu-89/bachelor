@@ -8,7 +8,7 @@ module.exports = function (app, passport) {
 
   app.post('/execute-code', function(req, res) {
     var code = req.body.codeToExecute;
-    console.log(code);
+    // ... checking code
     var s = new Sandbox();
     s.run(code, function(output) {
       res.json(output);

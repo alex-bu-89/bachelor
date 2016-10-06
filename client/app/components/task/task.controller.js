@@ -44,44 +44,46 @@ class TaskController {
     });
   }
 
-  sendAnswer(type = null){
-    switch(this.slideStructure.task.type){
-      case 'code':
-        this.slideStructure.task.answer = this.codeToExecute;
-        this.slideStructure.task.questions = 'test';
-        // emit answers on change
-        this._socket.emit('task:allAnswers', { answer: this.slideStructure.task.answer, page: this.slideStructure.page });
-      case 'poll':
-        var ctx = angular.element( document.querySelector( '#myChart' ) )[0];
-        console.log(ctx);
-        // For a pie chart
-        var data = {
-          labels: [
-            "Red",
-            "Blue",
-            "Yellow"
-          ],
-          datasets: [
-            {
-              data: [300, 50, 100],
-              backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-              ],
-              hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-              ]
-            }]
-        };
+  sendCodeAnswer(){
+    this.slideStructure.task.answer = this.codeToExecute;
+    // emit answers on change
+    this._socket.emit('task:updateAllAnswers',
+      {
+        answer: this.slideStructure.task.answer,
+        page: this.slideStructure.page
+      });
+  }
 
-        var myPieChart = new Chart(ctx,{
-          type: 'pie',
-          data
-        });
-    }
+  sendPollAnswer(answer){
+    var ctx = angular.element( document.querySelector( '#myChart' ) )[0];
+    console.log(ctx);
+    // For a pie chart
+    var data = {
+      labels: [
+        "Red",
+        "Blue",
+        "Yellow"
+      ],
+      datasets: [
+        {
+          data: [300, 50, 100],
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }]
+    };
+
+    var myPieChart = new Chart(ctx,{
+      type: 'pie',
+      data
+    });
   }
 
 }

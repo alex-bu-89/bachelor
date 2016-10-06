@@ -1,11 +1,13 @@
 class SlidesController {
 
   /*@ngInject*/
-  constructor($scope, $timeout, slideService, socket, userService, $uibModal) {
-    // init var
+  constructor($scope, $timeout, slideService, socket, userService, $uibModal, $stateParams) {
+
     this._Reveal = Reveal;
     this._$scope = $scope;
     this._$timeout = $timeout;
+    this._$stateParams = $stateParams;
+
     this._slideService = slideService;
     this._socket = socket;
     this._userService = userService;
@@ -41,8 +43,8 @@ class SlidesController {
       }
     });
 
-    this._socket.on('task:allAnswers:broadcast', (data) => {
-      console.log('task:allAnswers:broadcast');
+    this._socket.on('task:updateAllAnswers:broadcast', (data) => {
+      console.log('task:updateAllAnswers:broadcast');
       this.structure.slides[data.page].task.allAnswers.push({answer: data.answer});
     });
 
@@ -52,7 +54,7 @@ class SlidesController {
     });*/
   }
 
-  open() {
+  authenticateTempUser() {
     // disable reveal keyboard events
     this._Reveal.configure({
       keyboard: null
@@ -84,24 +86,27 @@ class SlidesController {
 
   init() {
     // get presentation structure
-    this.structure = this._slideService.getStructure('aX4j9Z');
-    // run slides
-    this._$timeout(() => {
-      // init events
-      this.initEvents();
+    this._slideService.getStructureById(this._$stateParams.id)
+      .then((structure)=>{
+        this.structure = structure;
 
-      // init reveial.js
-      this.initReveal();
+        this._$timeout(() => {
+          // init events
+          this.initEvents();
 
-      // skipp temp authenticated if you logged in
-      if (!this._userService.isAuthenticated) {
-        // check student authentification
-        if (!this._userService.isTempAuthenticated) {
-          this.open();
-        }
-      }
+          // init reveal.js
+          this.initReveal();
+
+          // authenticate temp user if you not logged in
+          if (!this._userService.isAuthenticated) {
+            if (!this._userService.isTempAuthenticated) {
+              this.authenticateTempUser();
+            }
+          }
+        });
     });
   }
+
 }
 
 export default SlidesController;

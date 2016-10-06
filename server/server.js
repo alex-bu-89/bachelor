@@ -68,42 +68,28 @@ function connect () {
 var clients = [];
 
 var slides = io.sockets.on('connection', function (client) {
-
+  console.log('connecting client with id: ' + client.id);
   clients[client.id] = {socket: client};
 
   client.on('client:connected', function(data) {
     console.log('client connected: ', client.id);
     clients[client.id].user = {name: data.name};
-    client.emit('client:update', clients); // TODO update list on client
+    client.emit('client:update', clients);
   });
 
   client.on('disconnect', function() {
-    console.log('client disconnected: ', client.id);
+    console.log('client disconnected: ', client.id + '\n');
+    delete clients[client.id];
   });
-
-/*  client.on('data', function (somedata) {
-    clients[client.id].data = someData;
-  });*/
 
   client.on('slide:changed', function (data) {
     console.log('slide changed: ', data);
     client.broadcast.emit('slide:navigate', data);
   });
 
-  client.on('disconnect', function() {
-    delete clients[client.id];
-  });
-
-  // send task answer to all clients
-  client.on('task:allAnswers', function(data) {
+  client.on('task:updateAllAnswers', function(data) {
     console.log('task:allAnswers: ', data);
-    slides.emit('task:allAnswers:broadcast', data);
+    slides.emit('task:updateAllAnswers:broadcast', data);
   });
-
-  // send structure on change to all clients
-  /*client.on('structure:changed', function(data) {
-    console.log('structure:changed');
-    slides.emit('structure:changed:broadcast', data);
-  });*/
 
 });
