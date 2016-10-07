@@ -45,9 +45,8 @@ var SlidesSchema = new Schema({
           votes: {type: Number}
         }]
       },
-      answer: {type: String},
       allAnswers: [{
-        answer: {type: String}
+        answer: {type: Schema.Types.Mixed}
       }]
     },
     assets: {type: String, default: ''},

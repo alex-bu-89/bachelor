@@ -21,7 +21,9 @@ class SlidesController {
   }
 
   initReveal() {
-    this._Reveal.initialize();
+    this._Reveal.initialize({
+      center: false
+    });
   }
 
   initEvents() {
@@ -48,9 +50,14 @@ class SlidesController {
       this.structure.slides[data.page].task.allAnswers.push({answer: data.answer});
     });
 
-    /*this._socket.on('structure:changed:broadcast', (data) => {
-      console.log('structure:changed:broadcast: ', data);
-      this._slideService.setStructure(data.structure);
+    /*this._socket.on('task:poll:updateData:broadcast', (data) => {
+      console.log('task:poll:updateData:broadcast: ');
+      this.structure.slides[data.page].task.allAnswers.push({answer: data.answer});
+      /!*data.task.answer = this.structure.slides[data.page].task.answer;
+      data.task.allAnswers = this.structure.slides[data.page].task.allAnswers;
+      this.structure.slides[data.page] = data;
+      console.log(this.structure);
+      this._$scope.$broadcast('angular:task:poll:updateData', this.structure);*!/
     });*/
   }
 

@@ -91,5 +91,10 @@ var slides = io.sockets.on('connection', function (client) {
     console.log('task:allAnswers: ', data);
     slides.emit('task:updateAllAnswers:broadcast', data);
   });
+  
+  client.on('task:poll:updateData', function(data) {
+    console.log('task:poll:updateData: ', data);
+    slides.emit('task:poll:updateData:broadcast', data);
+  });
 
 });

@@ -87,7 +87,19 @@ class SlidesService {
    * @param id
    */
   updateStructureById(structure, id) {
-
+    return this._$http({
+      url: this._config.API_ENDPOINT + '/slides/' + id,
+      headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+      dataType: 'json',
+      method: 'POST',
+      data: {id: id, structure: structure}
+    }).then((result) => {
+      if (result.status == 200) {
+        console.log(result);
+      } else {
+        console.log('updateStructureById error: ' + result);
+      }
+    });
   };
 
 }
