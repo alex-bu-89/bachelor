@@ -73,11 +73,11 @@ const Slides = mongoose.model('Slides');
     });
 
     app.put('/slides/:id', function (req, res) {
-      Slides.findOneAndUpdate({_id: req.params.id}, {$set: req.update}, {new: true}, function (err, doc) {
+      Slides.findOneAndUpdate({_id: req.params.id}, {$set: req.update}, {new: true}, function (err, structure) {
         if (err) {
           res.json({msg: "Something wrong when updating data!", e: err});
         }
-        res.json(doc);
+        res.json(structure);
       });
     });
 
