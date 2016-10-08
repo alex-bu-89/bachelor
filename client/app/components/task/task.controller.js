@@ -78,13 +78,13 @@ class TaskController {
       });
   }
 
+  /**
+   * Save the answer and send it to all clients
+   * @param answer
+   * @param slideStructure
+   */
   sendPollAnswer(answer, slideStructure) {
-    /*var ctx = angular.element(document.querySelector('#myChart'))[0];
-     ctx.width = 600;
-     ctx.height = 600;*/
-
     this.slideStructure.task.answer = answer;
-
     slideStructure.task.poll.possibleAnswers.map((possibleAnswer) => {
       possibleAnswer.votes = parseInt(possibleAnswer.votes);
       if (possibleAnswer.title == answer.title) {
@@ -92,11 +92,12 @@ class TaskController {
       }
       return possibleAnswer.title;
     });
-
     this._socket.emit('task:poll:updateData', slideStructure);
-
   }
 
+  /**
+   * initialisation
+   */
   init() {
     this._$timeout(() => {
       var ctx = angular.element(document.querySelector('#myChart'))[0];

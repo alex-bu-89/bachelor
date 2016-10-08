@@ -1,6 +1,6 @@
 /*
   this.structure = {
-    id: 'aX4j9Z',
+    _id: 'aX4j9Z',
     subject: {
 
     },
@@ -9,15 +9,19 @@
     ],
     slides: [
       {
+        _id: 'f42j2e',
         content: '',
         task: {
+          _id: 'fdk3s4',
           type: 'code',
           questions: '',
-          answer: '',
           allAnswers: [
 
           ],
           code: {
+
+          },
+          poll: {
 
           }
         },
@@ -27,14 +31,10 @@
       },
       {
         // next slide
-      },
-      {
-        // next slide
       }
     ]
   };
 */
-
 class SlidesService {
 
   /*@ngInject*/

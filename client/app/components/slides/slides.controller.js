@@ -95,16 +95,12 @@ class SlidesController {
     // get presentation structure
     this._slideService.getStructureById(this._$stateParams.id)
       .then((structure)=>{
-        console.log(structure);
         this.structure = structure;
-
         this._$timeout(() => {
           // init events
           this.initEvents();
-
           // init reveal.js
           this.initReveal();
-
           // authenticate temp user if you not logged in
           if (!this._userService.isAuthenticated) {
             if (!this._userService.isTempAuthenticated) {

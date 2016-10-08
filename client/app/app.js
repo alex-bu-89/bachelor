@@ -59,7 +59,7 @@ angular.module('app', [
       }
     });
 
-  })
+  });
 
 
 
