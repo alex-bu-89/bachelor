@@ -1,6 +1,5 @@
 export default ['$rootScope', function ($rootScope) {
   var socket = io.connect('http://localhost:8000/');
-  console.log('socket factory init');
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {
@@ -22,3 +21,4 @@ export default ['$rootScope', function ($rootScope) {
     }
   };
 }]
+

@@ -70,31 +70,25 @@ var clients = [];
 var slides = io.sockets.on('connection', function (client) {
   console.log('connecting client with id: ' + client.id);
   clients[client.id] = {socket: client};
-
   client.on('client:connected', function(data) {
     console.log('client connected: ', client.id);
     clients[client.id].user = {name: data.name};
     client.emit('client:update', clients);
   });
-
   client.on('disconnect', function() {
     console.log('client disconnected: ', client.id + '\n');
     delete clients[client.id];
   });
-
   client.on('slide:changed', function (data) {
     console.log('slide changed: ', data);
     client.broadcast.emit('slide:navigate', data);
   });
-
   client.on('task:updateAllAnswers', function(data) {
     console.log('task:allAnswers: ', data);
     slides.emit('task:updateAllAnswers:broadcast', data);
   });
-  
   client.on('task:poll:updateData', function(data) {
     console.log('task:poll:updateData: ', data);
     slides.emit('task:poll:updateData:broadcast', data);
   });
-
 });

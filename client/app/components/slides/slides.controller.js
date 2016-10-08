@@ -32,33 +32,20 @@ class SlidesController {
       this.currentPage = event.indexh;
       this._socket.emit('slide:changed', {page: this.currentPage});
     });
-
     this._socket.on('connect', () => {
       console.log('client connected');
       this._socket.emit('client:connected', {name: this._userService.getUser().name});
     });
-
     this._socket.on('slide:navigate', (data) => {
       console.log(data);
       if (data.page !== this.currentPage) {
         Reveal.slide(data.page);
       }
     });
-
     this._socket.on('task:updateAllAnswers:broadcast', (data) => {
       console.log('task:updateAllAnswers:broadcast');
       this.structure.slides[data.page].task.allAnswers.push({answer: data.answer});
     });
-
-    /*this._socket.on('task:poll:updateData:broadcast', (data) => {
-      console.log('task:poll:updateData:broadcast: ');
-      this.structure.slides[data.page].task.allAnswers.push({answer: data.answer});
-      /!*data.task.answer = this.structure.slides[data.page].task.answer;
-      data.task.allAnswers = this.structure.slides[data.page].task.allAnswers;
-      this.structure.slides[data.page] = data;
-      console.log(this.structure);
-      this._$scope.$broadcast('angular:task:poll:updateData', this.structure);*!/
-    });*/
   }
 
   authenticateTempUser() {
