@@ -52,14 +52,14 @@ connection
   .on('disconnected', connect)
   .once('open', listen);
 
-function listen () {
+function listen() {
   if (app.get('env') === 'test') return;
   server.listen(port);
   console.log('Express app started on port ' + port);
 }
 
-function connect () {
-  var options = { server: { socketOptions: { keepAlive: 1 } } };
+function connect() {
+  var options = {server: {socketOptions: {keepAlive: 1}}};
   var connection = mongoose.connect(config.db, options).connection;
   return connection;
 }
@@ -70,12 +70,12 @@ var clients = [];
 var slides = io.sockets.on('connection', function (client) {
   console.log('connecting client with id: ' + client.id);
   clients[client.id] = {socket: client};
-  client.on('client:connected', function(data) {
+  client.on('client:connected', function (data) {
     console.log('client connected: ', client.id);
     clients[client.id].user = {name: data.name};
     client.emit('client:update', clients);
   });
-  client.on('disconnect', function() {
+  client.on('disconnect', function () {
     console.log('client disconnected: ', client.id + '\n');
     delete clients[client.id];
   });
@@ -83,11 +83,11 @@ var slides = io.sockets.on('connection', function (client) {
     console.log('slide changed: ', data);
     client.broadcast.emit('slide:navigate', data);
   });
-  client.on('task:updateAllAnswers', function(data) {
+  client.on('task:updateAllAnswers', function (data) {
     console.log('task:allAnswers: ', data);
     slides.emit('task:updateAllAnswers:broadcast', data);
   });
-  client.on('task:poll:updateData', function(data) {
+  client.on('task:poll:updateData', function (data) {
     console.log('task:poll:updateData: ', data);
     slides.emit('task:poll:updateData:broadcast', data);
   });

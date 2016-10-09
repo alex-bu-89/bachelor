@@ -101,8 +101,8 @@ class TaskController {
   init() {
     this._$timeout(() => {
       var ctx = angular.element(document.querySelector('#myChart'))[0];
-      ctx.width = 600;
-      ctx.height = 600;
+      ctx.width = 500;
+      ctx.height = 500;
 
       this.myPieChart = new Chart(ctx, {
         type: 'bar',

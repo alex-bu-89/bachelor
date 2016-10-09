@@ -1,4 +1,5 @@
 <navbar></navbar>
+<!--
 <div class="navbar-default sidebar" role="navigation">
   <div class="sidebar-nav">
 
@@ -12,7 +13,7 @@
                                 </button>
                             </span>
         </div>
-        <!-- /input-group -->
+        &lt;!&ndash; /input-group &ndash;&gt;
       </li>
       <li class="users">
         <h3 href="index.html">Online</h3>
@@ -31,7 +32,7 @@
             <a href="morris.html">Morris.js Charts</a>
           </li>
         </ul>
-        <!-- /.nav-second-level -->
+        &lt;!&ndash; /.nav-second-level &ndash;&gt;
       </li>
       <li>
         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
@@ -61,7 +62,7 @@
             <a href="grid.html">Grid</a>
           </li>
         </ul>
-        <!-- /.nav-second-level -->
+        &lt;!&ndash; /.nav-second-level &ndash;&gt;
       </li>
       <li>
         <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
@@ -88,10 +89,10 @@
                 <a href="#">Third Level Item</a>
               </li>
             </ul>
-            <!-- /.nav-third-level -->
+            &lt;!&ndash; /.nav-third-level &ndash;&gt;
           </li>
         </ul>
-        <!-- /.nav-second-level -->
+        &lt;!&ndash; /.nav-second-level &ndash;&gt;
       </li>
       <li>
         <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
@@ -103,16 +104,17 @@
             <a href="login.html">Login Page</a>
           </li>
         </ul>
-        <!-- /.nav-second-level -->
+        &lt;!&ndash; /.nav-second-level &ndash;&gt;
       </li>
     </ul>
   </div>
-  <!-- /.sidebar-collapse -->
+  &lt;!&ndash; /.sidebar-collapse &ndash;&gt;-->
 </div>
   <div class="reveal-viewport">
     <div class="reveal">
       <div class="slides">
-        <section ng-repeat="slide in $ctrl.structure.slides">
+        <section ng-repeat="slide in $ctrl.structure.slides"
+                 ng-class={'center':slide.vertical}>
           <div class="slide-content" ng-if="!slide.task.type"
                ng-bind-html="slide.content | trustHtml"></div>
           <task class="task"

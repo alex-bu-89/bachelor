@@ -19,7 +19,7 @@
         </div>
     </div>
     <div ng-if="$ctrl.slideStructure.task.type == 'poll'" class="task-content poll-task">
-        <h4>{{$ctrl.slideStructure.task.questions}}</h4>
+        <h2>{{$ctrl.slideStructure.task.questions}}</h2>
         <div ng-show="!$ctrl.slideStructure.task.answer">
             <div class="poll-buttons">
                 <button ng-repeat="possibleAnswer in $ctrl.slideStructure.task.poll.possibleAnswers"
