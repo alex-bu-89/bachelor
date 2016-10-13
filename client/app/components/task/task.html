@@ -1,12 +1,23 @@
 <div class="task-wrapper">
     <div ng-if="$ctrl.slideStructure.task.type == 'code'" class="task-content code-task">
         <div ng-show="!$ctrl.slideStructure.task.answer">
-            <h2>{{$ctrl.slideStructure.task.questions}}</h2>
-            <textarea id="editor" ng-model="$ctrl.codeToExecute"></textarea>
-            <textarea id="console" ng-model="$ctrl.consoleOutput"></textarea>
-            <button ng-click="$ctrl.executeCode()" type="button"
+            <h3>{{$ctrl.slideStructure.task.questions}}</h3>
+            <span class="task-message">
+                <small>
+                    <span ng-show="!$ctrl.isCodeRun">{{$ctrl.message}}</span>
+                    <span ng-show="$ctrl.isCodeRun && $ctrl.isCodeFine">Ihre Lösung ist <span class="task-message-r">korekt</span></span>
+                    <span ng-show="$ctrl.isCodeRun && !$ctrl.isCodeFine">Ihre Lösung ist <span class="task-message-f">falsh</span></span>
+                </small></span>
+            <div class="code-task-wrap">
+                <div class="editor-wrap">
+                    <div class="text-area-wrap"><textarea id="editor" ng-model="$ctrl.codeToExecute"></textarea></div>
+                    <div id="console"><pre><code data-trim data-noescape>{{$ctrl.consoleOutput}}</code></pre></div>
+                </div>
+                <div id="unit-test"><pre><code data-trim data-noescape>{{$ctrl.unitTest}}</code></pre></div>
+            </div>
+            <button ng-class="{'code-passed': $ctrl.isCodeFine}" ng-click="$ctrl.runCodeChecker()" type="button"
                     class="btn btn-danger">Ausführen</button>
-            <button ng-click="$ctrl.sendCodeAnswer()" type="button"
+            <button ng-show="$ctrl.isCodeFine" ng-click="$ctrl.sendCodeAnswer()" type="button"
                     class="btn btn-primary">Lösung abgeben</button>
         </div>
         <div ng-show="$ctrl.slideStructure.task.answer" class="task-result">
@@ -19,7 +30,7 @@
         </div>
     </div>
     <div ng-if="$ctrl.slideStructure.task.type == 'poll'" class="task-content poll-task">
-        <h2>{{$ctrl.slideStructure.task.questions}}</h2>
+        <h3>{{$ctrl.slideStructure.task.questions}}</h3>
         <div ng-show="!$ctrl.slideStructure.task.answer">
             <div class="poll-buttons">
                 <button ng-repeat="possibleAnswer in $ctrl.slideStructure.task.poll.possibleAnswers"

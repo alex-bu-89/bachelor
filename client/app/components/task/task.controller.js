@@ -12,10 +12,14 @@ class TaskController {
     this._socket = socket;
 
     this.LOCAL_ANSWER = 'local_answer';
+    this.message = 'Ausführen Sie bitte den Code um ihre Lösung zu überprüfen und abzugeben';
 
     this.structure = this.slideStructure;
-    this.codeToExecute = this.structure.task.code;
+    this.codeToExecute = this.structure.task.codeTask.code;
+    this.unitTest = this.structure.task.codeTask.unitTest;
     this.consoleOutput = '';
+    this.isCodeFine = false;
+    this.isCodeRun = false;
     this.myPieChart;
 
     this.init();
@@ -44,8 +48,79 @@ class TaskController {
 
   }
 
+  runCodeChecker(){
+
+    this.isCodeRun = true;
+
+    this.executeCode().then((data)=>{
+      // clear consol message
+      this.consoleOutput = '';
+
+      // check output for error
+      var error = false;
+      if(data.result !== 'null'){
+        error = data.result.toLowerCase().indexOf('error') !== -1
+      }
+      if(data.result === 'null' && data.console[0] === undefined){
+        error = true
+      }
+
+      // show output message
+      if (data.result !== 'null' && data.console[0] !== undefined) {
+        this.consoleOutput += data.result + '\r\n';
+        this.consoleOutput += '[log]: ' + data.console + '\r\n';
+      } else if (data.result !== 'null') {
+        this.consoleOutput += data.result + '\r\n';
+      } else if (data.console[0] !== undefined) {
+        this.consoleOutput += '[log]: ' + data.console + '\r\n';
+      }
+
+      // return error
+      return error;
+
+    }).then((error)=>{
+      // check code if no syntax error
+      if(!error){
+        this.checkCode()
+          .then((data)=> {
+            if (data.state === 'passed') {
+              this.isCodeFine = true;
+            }
+            else {
+              this.consoleOutput += '[log]: ' + data.err.message + '\r\n';
+              this.isCodeFine = false;
+            }
+          });
+      } else {
+        this.consoleOutput += '[log]: error ' + error + ' empty input\r\n';
+        this.isCodeFine = false;
+      }
+    });
+  }
+
+  checkCode(){
+    return this._$http({
+      url: this._config.API_ENDPOINT + '/checkcode',
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      dataType: 'json',
+      method: 'POST',
+      data: {
+        "codeToExecute": this.codeToExecute,
+        "unitTest": this.unitTest,
+      }
+    }).then((result) => {
+      console.log(result);
+      if (result.status == 200) {
+        return result.data;
+      } else {
+        console.err('error' + result.data);
+        return result.data
+      }
+    });
+  }
+
   executeCode() {
-    this._$http({
+    return this._$http({
       url: this._config.API_ENDPOINT + '/execute-code',
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       dataType: 'json',
@@ -53,14 +128,8 @@ class TaskController {
       data: {"codeToExecute": this.codeToExecute}
     }).then((result) => {
       if (result.status == 200) {
-        if (result.data.result !== 'null' && result.data.console[0] !== undefined) {
-          this.consoleOutput = result.data.result;
-          this.consoleOutput += '\n[log]: ' + result.data.console;
-        } else if (result.data.result !== 'null') {
-          this.consoleOutput = result.data.result;
-        } else if (result.data.console[0] !== undefined) {
-          this.consoleOutput = '\n[log]: ' + result.data.console;
-        }
+        console.log(result.data);
+        return result.data;
       } else {
         console.log(result);
       }

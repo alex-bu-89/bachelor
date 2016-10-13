@@ -6,21 +6,13 @@ module.exports = function (app, passport) {
 
   const Sandbox = require('sandbox');
 
-  app.get('/checkcode', function (req, res) {
+  app.post('/checkcode', function (req, res) {
 
-    var before_test = 'var expect = require("chai").expect;\n'
+    var code = req.body.codeToExecute;
+    var unitTest = req.body.unitTest;
 
-    var code = 'var fibonacci = function(num){ var a = 1, b = 0, temp; while (num >= 0){ temp = a; a = a + b; b = temp; num--; } return b;};'
+    var filename = 'unit-test-' + new Date().getTime() + '.js';
 
-    var unitTest = 'describe("Fibonacci", function () { it("shoud return fibonacci number", function () { ' +
-      'expect(fibonacci(0)).to.equal(1);' +
-      'expect(fibonacci(1)).to.equal(1);' +
-      'expect(fibonacci(2)).to.equal(2);' +
-      'expect(fibonacci(6)).to.equal(13);' +
-      'expect(fibonacci(8)).to.equal(34);' +
-      '});});';
-
-    var filename = 'unit-test.js';
     var result = {};
 
     // Instantiate a Mocha instance.
@@ -28,12 +20,9 @@ module.exports = function (app, passport) {
 
     var testDir = path.dirname(require.main.filename)+ '/test/';
 
-    fs.unlink(testDir + filename);
-
     // writing the unit test
-    fs.writeFile(testDir + filename, before_test + '\n' + code + '\n' + unitTest, { flag: 'wx' }, (err) => {
+    fs.writeFile(testDir + filename, code + '\n' + unitTest, { flag: 'wx' }, (err) => {
       if (err) console.log(err);
-
       console.log("It's saved!");
 
       mocha.addFile(testDir + filename);
@@ -77,6 +66,7 @@ module.exports = function (app, passport) {
         console.log(result);
         res.json(result);
       });
+
 
     });
   });

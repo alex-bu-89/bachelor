@@ -5,21 +5,104 @@ task
     margin: 0 auto
 
 .code-task
-  #editor, #console
+  .editor-wrap
+    float: left
+    text-align: left
+    width: 50%
+    margin: 0
+    padding: 0
+    line-height: 0
+
+  .code-task-wrap:after
+    content: ''
+    display: block
+    clear: both
+  .text-area-wrap
     position: relative
+
+  #editor, #console, #unit-test
+    position: relative
+    height: 400px
+    font-size: 20px
+    margin: 0
+    padding: 0
+    text-align: left
+    background: #fff
+    border: 1px solid #f9f9f9
+    padding: 15px
+    color: #484646
+
+  .text-area-wrap, #console, #unit-test
+    &:before
+      content: 'test'
+      display: block
+      position: absolute
+      top: 0px
+      right: 0px
+      padding: 5px
+      background: #FFE4C4
+      z-index: 999
+      font-size: 16px
+      line-height: 20px
+
+  .text-area-wrap:before
+    content: 'Editor'
+
+  #console:before
+    content: 'Console'
+
+  #unit-test:before
+    content: 'Unit Test'
+
+  #editor, #console
+    height: 200px
+    float: none
+    width: 100%
+
+  #editor, #console, #unit-test
+    background: #fff
+    color: #3F3F3F
+    font-size: 16px
+    line-height: 1.2em
+    font-family: monospace
+
+  #unit-test
+    float: right
     width: 50%
     height: 400px
-    font-size: 26px
-  #editor
-    float: left
-  .ace_editor
-    font-size: 26px
 
-  .ace_fold-widget.ace_start.ace_open
-    display: none
+  .btn.btn-danger
+    &.code-passed
+      background: green
+      border: 1px solid darkgreen
+
+  .code-passed-textarea
+    background: #D4E7D4 !important
+
+  .task-message-r
+    background: green
+    color: #fff
+
+  .task-message-f
+    background: #d43f3a
+    color: #fff
 
 .poll-buttons
   .btn
     display: inline-block
     width: 100%
     margin-bottom: 10px
+
+.reveal
+  pre
+    width: 100%
+    height: auto
+    background: #fff
+    box-shadow: none
+    font-size: 16px
+    margin: 0px
+    border-radius: 0px
+
+    code
+      background: #fff
+      color: #3F3F3F
