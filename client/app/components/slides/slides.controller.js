@@ -24,7 +24,6 @@ class SlidesController {
     this._Reveal.initialize({
       center: false
     });
-    hljs.initHighlightingOnLoad();
   }
 
   initEvents() {

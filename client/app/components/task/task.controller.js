@@ -92,7 +92,7 @@ class TaskController {
             }
           });
       } else {
-        this.consoleOutput += '[log]: error ' + error + ' empty input\r\n';
+        this.consoleOutput += '[log]: error ' + '\r\n';
         this.isCodeFine = false;
       }
     });
