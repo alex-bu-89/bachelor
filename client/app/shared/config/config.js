@@ -6,20 +6,11 @@ export default {
     subject: {},
     feedback: [],
     slides: [
-      /*{
+      {
         content: '<h2>Unterrichtssystem</h2>',
         assets: {},
         vertical: true
       },
-      {
-        content: '<h2>Verwendung der for Schleife</h2><br />' +
-        '<pre><code>for (var i = 0; i < 9; i++) {\n' +
-        '    console.log(i);\n' +
-        '    // more statements\n' +
-        '}</code></pre><br />' +
-        '<p>Die folgende for Anweisung initialisiert die Variable <span>i</span> mit null. Die Bedingung prüft ob i kleiner neun ist, führt den Code in der block Anweisung aus und erhöht i um eins nach jedem Schleifendurchlauf.</p>',
-        assets: {}
-      },*/
       {
         task: {
           type: "code",

@@ -1,14 +1,7 @@
+/**
+ * User Service
+ */
 class UserService {
-
-  /*
-     "_id": "57e05e7cc1737daf1b8d81f7",
-     "authToken": "",
-     "isProf": true,
-     "password": "$2a$10$1sR4jBlygCt/unncRdFAaON4ZpE4IJDx60OOuS151n/kVHZeu.aIa",
-     "email": "alex@test.ninja",
-     "name": "alex"
-   */
-
   /*@ngInject*/
   constructor($q, $http, $rootScope, config, $timeout) {
     this._$q = $q;
@@ -28,6 +21,10 @@ class UserService {
     this.init();
   }
 
+  /**
+   * Set user
+   * @param user
+   */
   setUser(user){
     this.user = user;
 
@@ -36,14 +33,24 @@ class UserService {
     });
   }
 
+  /**
+   * Get user
+   * @returns {{}|*}
+   */
   getUser(){
     return this.user
   }
 
+  /**
+   * Remove user
+   */
   removeUser(){
     this.user = {};
   }
 
+  /**
+   * load user credentials
+   */
   loadUserCredentials() {
     var token = window.localStorage.getItem(this.LOCAL_TOKEN_KEY);
     if (token) {
@@ -61,6 +68,10 @@ class UserService {
     console.log('isTempAuthenticated: ', this.isTempAuthenticated);
   }
 
+  /**
+   * store user credentials
+   * @param data
+   */
   storeUserCredentials(data) {
     window.localStorage.setItem(this.LOCAL_TOKEN_KEY, data.token);
     window.localStorage.setItem(this.LOCAL_USER, JSON.stringify(data.user));
@@ -68,12 +79,20 @@ class UserService {
     this.useCredentials(data.token);
   }
 
+  /**
+   * store temp user credentials
+   * @param user
+   */
   storeTempUserCredentials(user) {
     window.localStorage.setItem(this.LOCAL_TEMP_USER, JSON.stringify(user));
     this.setUser(user);
     this.useTempCredentials();
   }
 
+  /**
+   * use credentials
+   * @param token
+   */
   useCredentials(token) {
     this.isAuthenticated = true;
     this.isTempAuthenticated = false;
@@ -83,11 +102,17 @@ class UserService {
     this._$http.defaults.headers.common.Authorization = this.authToken;
   }
 
+  /**
+   * use temp credentials
+   */
   useTempCredentials() {
     this.isTempAuthenticated = true;
     this.isAuthenticated = false;
   }
 
+  /**
+   * destroy user credentials
+   */
   destroyUserCredentials() {
     this.authToken = undefined;
     this.isAuthenticated = false;
@@ -98,6 +123,11 @@ class UserService {
     window.localStorage.removeItem(this.LOCAL_TEMP_USER);
   }
 
+  /**
+   * register user
+   * @param user
+   * @returns promise
+   */
   register(user) {
     return this._$q((resolve, reject) => {
       this._$http.post(API_ENDPOINT.url + '/signup', user).then(function (result) {
@@ -110,6 +140,11 @@ class UserService {
     });
   };
 
+  /**
+   * Login
+   * @param user
+   * @returns promise
+   */
   login(user) {
     return this._$q((resolve, reject) => {
       this._$http({
@@ -129,10 +164,16 @@ class UserService {
     });
   };
 
+  /**
+   * Logout
+   */
   logout() {
     this.destroyUserCredentials();
   };
 
+  /**
+   * Init function
+   */
   init() {
     this.loadUserCredentials();
   };
