@@ -10,4 +10,5 @@ Bachelor thesis, Beuth-Hochschule, Media Informatics, 2016
 1. Run the client with gulp `gulp`. Client should be started at the port 3000
 1. Go to `http://localhost:3000/slides/test` to run the app
 
+
 ![Screenshot](https://dl.dropboxusercontent.com/u/52699014/git/screenshots.PNG)
