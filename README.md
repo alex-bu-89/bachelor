@@ -1,6 +1,8 @@
 #Implementation of interactive lecture system by the example of Computer Science subjects.
 Bachelor thesis, Beuth-Hochschule, Media Informatics, 2016
 
+Deme is here: `78.47.217.227/slides/test`
+
 `How to run:`
 
 1. Install and run mongodb https://docs.mongodb.com/manual/installation/
