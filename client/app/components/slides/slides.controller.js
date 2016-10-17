@@ -20,12 +20,18 @@ class SlidesController {
     this.init();
   }
 
+  /**
+   * Init reveal
+   */
   initReveal() {
     this._Reveal.initialize({
       center: false
     });
   }
 
+  /**
+   * Init Events
+   */
   initEvents() {
     // init change slide event
     Reveal.addEventListener('slidechanged', (event) => {
@@ -48,6 +54,9 @@ class SlidesController {
     });
   }
 
+  /**
+   * authenticate temp user
+   */
   authenticateTempUser() {
     // disable reveal keyboard events
     this._Reveal.configure({
@@ -78,6 +87,9 @@ class SlidesController {
     })
   }
 
+  /**
+   * Init controller
+   */
   init() {
     // get presentation structure
     this._slideService.getStructureById(this._$stateParams.id)

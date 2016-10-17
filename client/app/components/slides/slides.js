@@ -23,8 +23,10 @@ let slidesModule = angular.module('slides', [ uiRouter] )
   template,
   controller
 })
+
 // set slide service
 .service('slideService', SlideService)
+  
 // set filter
 .filter('trustHtml', trustFilter)
 

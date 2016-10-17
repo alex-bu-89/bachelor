@@ -19,17 +19,22 @@ angular.module('app', [
     $locationProvider.html5Mode(true).hashPrefix('!');
   })
 
+  // define config
   .constant('config', config)
 
+  // define app
   .component('app', {
     template,
     restrict: 'E'
   })
 
+  // define unser service
   .service('userService', UserService)
 
+  // define socket factory
   .factory('socket', socketFactory)
 
+  // define auth interceptor
   .factory('AuthInterceptor', function ($rootScope, $q, config) {
     "ngInject";
     return {
@@ -42,11 +47,12 @@ angular.module('app', [
       }
     };
   })
+  
   .config(function ($httpProvider) {
     "ngInject";
     $httpProvider.interceptors.push('AuthInterceptor');
   })
-
+  
   .run(($rootScope, $state, userService) => {
     "ngInject";
     $rootScope.$on('$stateChangeStart', (event, next, nextParams, fromState) => {

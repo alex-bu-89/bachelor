@@ -15,6 +15,9 @@ class LoginController {
     console.log('login init');
   }
 
+  /**
+   * Login
+   */
   login() {
     this._userService.login(this.user)
       .then((msg) => {
@@ -25,6 +28,9 @@ class LoginController {
       });
   };
 
+  /**
+   * Logout
+   */
   logout() {
     this._userService.logout();
   }

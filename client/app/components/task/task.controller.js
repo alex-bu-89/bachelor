@@ -25,12 +25,13 @@ class TaskController {
     this.init();
   }
 
+  /**
+   * init events
+   */
   $onInit() {
-
     this._socket.on('structure:changed:broadcast', (data) => {
       this.slideStructure = data.structure.slides[this.slideStructure.page]
     });
-
     this._socket.on('task:poll:updateData:broadcast', (data) => {
       if (this.slideStructure.page == data.page) {
         console.log('task:poll:updateData:broadcast: ');
@@ -41,18 +42,20 @@ class TaskController {
         this.myPieChart.data.datasets[0].data = this.slideStructure.task.poll.possibleAnswers.map((possibleAnswer)=> {
           return possibleAnswer.votes;
         });
-
         this.myPieChart.update();
       }
     });
-
   }
 
+  /**
+   * Run code checker
+   */
   runCodeChecker(){
 
     this.isCodeRun = true;
 
     this.executeCode().then((data)=>{
+
       // clear consol message
       this.consoleOutput = '';
 
@@ -98,6 +101,10 @@ class TaskController {
     });
   }
 
+  /**
+   * Check code
+   * @returns {Promise}
+   */
   checkCode(){
     return this._$http({
       url: this._config.API_ENDPOINT + '/checkcode',
@@ -119,6 +126,10 @@ class TaskController {
     });
   }
 
+  /**
+   * Execute code
+   * @returns {Promise}
+   */
   executeCode() {
     return this._$http({
       url: this._config.API_ENDPOINT + '/execute-code',
@@ -136,6 +147,9 @@ class TaskController {
     });
   }
 
+  /**
+   * Send code answer
+   */
   sendCodeAnswer() {
     window.localStorage.setItem(this.LOCAL_ANSWER, JSON.stringify(this.codeToExecute));
     this.slideStructure.task.answer = this.codeToExecute;

@@ -9,10 +9,16 @@ class ModalController {
     };
   }
 
+  /**
+   * ok
+   */
   ok() {
     this.close({$value: this.user});
   };
 
+  /**
+   * cancel
+   */
   cancel() {
     this.dismiss({$value: 'cancel'});
   };

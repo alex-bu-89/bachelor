@@ -13,41 +13,6 @@ export default {
       },
       {
         task: {
-          type: "code",
-          questions: "Programmieraufgabe: Fibonacci-Folge",
-          codeTask: {
-            code: 'function fibonacci(num){\nvar a = 1, b = 0, temp;\nwhile (num >= 0){\ntemp = a; a = a + b; b = temp; num--;\n}\nreturn b;\n}\nfibonacci(5);',
-            unitTest: 'var expect = require("chai").expect;\n\n' +
-            'describe("Fibonacci",function (){' +
-            '\nit("shoud return fibonacci number", \nfunction (){\n' +
-            'expect(fibonacci(0)).to.equal(1);\n' +
-            'expect(fibonacci(1)).to.equal(1);\n' +
-            'expect(fibonacci(2)).to.equal(2);\n' +
-            'expect(fibonacci(6)).to.equal(13);\n' +
-            'expect(fibonacci(8)).to.equal(34);\n' +
-            '});\n});',
-          },
-          allAnswers: [],
-          poll: {
-            possibleAnswers: []
-          }
-        }
-      },{
-        task: {
-          "type": "code",
-          "questions": "Verwendung der for Schleife",
-          "codeTask": {
-            unitTest: '',
-            code: 'for (var i = 0; i < 9; i++) {\n console.log(i);\n // more statements \n}'
-          },
-          "allAnswers": [],
-          "poll": {
-            "possibleAnswers": []
-          }
-        }
-      },
-      {
-        task: {
           "type": "poll",
           "questions": "Wie gut schätzen Sie ihr Vorwissen in JavaScript ein?",
           "allAnswers": [],
@@ -82,6 +47,28 @@ export default {
             ]
           }
         },
+      },
+      {
+        task: {
+          type: "code",
+          questions: "Programmieraufgabe: Fibonacci-Folge",
+          codeTask: {
+            code: 'function fibonacci(num){\nvar a = 1, b = 0, temp;\nwhile (num >= 0){\ntemp = a; a = a + b; b = temp; num--;\n}\nreturn b;\n}\nfibonacci(5);',
+            unitTest: 'var expect = require("chai").expect;\n\n' +
+            'describe("Fibonacci",function (){' +
+            '\nit("shoud return fibonacci number", \nfunction (){\n' +
+            'expect(fibonacci(0)).to.equal(1);\n' +
+            'expect(fibonacci(1)).to.equal(1);\n' +
+            'expect(fibonacci(2)).to.equal(2);\n' +
+            'expect(fibonacci(6)).to.equal(13);\n' +
+            'expect(fibonacci(8)).to.equal(34);\n' +
+            '});\n});',
+          },
+          allAnswers: [],
+          poll: {
+            possibleAnswers: []
+          }
+        }
       },
     ]
   }
