@@ -1,4 +1,4 @@
-#Implementation of interactive lecture system by the example of Computer Science subjects.
+# Prototype of interactive lecture system
 Bachelor thesis, Beuth-Hochschule, Media Informatics, 2016.
 
 `Demo:` http://78.47.217.227/slides/test
