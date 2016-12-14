@@ -1,5 +1,7 @@
+import config from '../config/config';
+
 export default ['$rootScope', function ($rootScope) {
-  var socket = io.connect('http://127.0.0.1:8000/');
+  var socket = io.connect(config.API_ENDPOINT);
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {
