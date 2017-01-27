@@ -1,8 +1,6 @@
 # Prototype of interactive lecture system
 Bachelor thesis, Beuth-Hochschule, Media Informatics, 2016.
 
-`Demo:` http://78.47.217.227/slides/test
-
 `How to run:`
 
 1. Install and run mongodb https://docs.mongodb.com/manual/installation/
